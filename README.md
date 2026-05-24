@@ -1,6 +1,9 @@
 # <div align="center">sadirov.dev</div>
 
 <div align="center">
+  <img src="./public/sadirov-logo.svg" width="132" alt="sadirov.dev logo" />
+  <br />
+  <br />
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:081120,50:0f2740,100:38bdf8&height=180&section=header&text=Abdulloh%20Sadirov&fontSize=46&fontColor=f8fafc&animation=fadeIn&fontAlignY=36&desc=Fullstack%20Developer%20%E2%80%A2%20AI%2FML%20Engineer%20%E2%80%A2%20Web%20Systems%20Builder&descAlignY=58&descSize=18" alt="Header banner" />
 </div>
 
