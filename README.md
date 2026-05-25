@@ -135,13 +135,13 @@ Open the local URL shown by Vite in your terminal.
 ## Production Build
 
 ```bash
-npm run build
+bun run build
 ```
 
 To preview the production build locally:
 
 ```bash
-npm run preview
+bun run preview
 ```
 
 ---
