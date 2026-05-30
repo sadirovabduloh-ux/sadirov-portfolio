@@ -107,7 +107,7 @@ export const skillGroups = [
     icon: Wrench,
     title: "Tools",
     description: "Using fast modern tooling to collaborate, iterate, and ship with precision.",
-    skills: ["Git", "GitHub", "GitLab", "npm", "pnpm", "bun", "yarn", "Vite"],
+    skills: ["Git", "GitHub", "GitLab", "bun", "pnpm", "yarn", "Vite"],
   },
 ];
 
@@ -204,4 +204,5 @@ export const links = {
   email: "mailto:sadirovabduloh@gmail.com",
   contact: "https://t.me/sadirovdev",
   live: "https://sadirov.dev",
+  resume: "/Resume.pdf",
 };

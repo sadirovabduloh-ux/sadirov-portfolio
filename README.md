@@ -124,8 +124,8 @@ Its card preview was custom-built to reflect:
 ## Local Development
 
 ```bash
-bun i
-bun dev
+bun install
+bun run dev
 ```
 
 Open the local URL shown by Vite in your terminal.

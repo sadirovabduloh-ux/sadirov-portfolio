@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Menu, Sparkles, X } from "lucide-react";
+import { ArrowRight, FileText, Menu, Sparkles, X } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { Tag } from "./components/ui/tag";
 import { cn } from "./lib/utils";
@@ -28,6 +28,48 @@ const sectionMotion = {
       ease: [0.22, 1, 0.36, 1],
     },
   }),
+};
+
+const aosMotion = {
+  up: {
+    hidden: { opacity: 0, y: 34, scale: 0.96 },
+    visible: (delay = 0) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        delay,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }),
+  },
+  left: {
+    hidden: { opacity: 0, x: -42, rotateY: -8 },
+    visible: (delay = 0) => ({
+      opacity: 1,
+      x: 0,
+      rotateY: 0,
+      transition: {
+        duration: 0.82,
+        delay,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }),
+  },
+  right: {
+    hidden: { opacity: 0, x: 42, rotateY: 8 },
+    visible: (delay = 0) => ({
+      opacity: 1,
+      x: 0,
+      rotateY: 0,
+      transition: {
+        duration: 0.82,
+        delay,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }),
+  },
 };
 
 function SectionHeading({ eyebrow, title, text }) {
@@ -60,8 +102,17 @@ function Navbar() {
     <header className="sticky top-0 z-50 border-b border-white/8 bg-slate-950/65 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1500px] items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
         <a href="#top" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="inline-flex h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.9)]" />
-          <span className="text-[12px] uppercase tracking-[0.22em] text-slate-100 sm:text-sm sm:tracking-[0.28em]">sadirov.dev</span>
+          <img
+            src="/sadirov-logo.svg"
+            alt="sadirov.dev logo"
+            className="h-10 w-10 rounded-2xl shadow-[0_0_24px_rgba(56,189,248,0.18)] sm:h-11 sm:w-11"
+          />
+          <div className="flex flex-col">
+            <span className="text-[12px] font-medium uppercase tracking-[0.22em] text-slate-100 sm:text-sm sm:tracking-[0.28em]">
+              sadirov.dev
+            </span>
+            <span className="hidden text-[11px] text-slate-400 sm:block">Fullstack Developer • AI/ML Engineer</span>
+          </div>
         </a>
 
         <nav className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
@@ -120,24 +171,24 @@ function Hero() {
             variants={sectionMotion}
             initial="hidden"
             animate="visible"
-            className="max-w-4xl"
+            className="scene-3d max-w-4xl"
           >
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/15 bg-white/[0.04] px-3.5 py-1.5 text-[11px] uppercase tracking-[0.22em] text-cyan-100/80 sm:mb-6 sm:px-4 sm:text-xs sm:tracking-[0.3em]">
+            <div className="ios-pill layer-pop-soft mb-5 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] uppercase tracking-[0.22em] text-cyan-100/80 sm:mb-6 sm:px-4 sm:text-xs sm:tracking-[0.3em]">
               <Sparkles className="h-3.5 w-3.5" />
               Fullstack Developer • AI/ML Engineer
             </div>
-            <h1 className="max-w-5xl text-[3rem] font-semibold leading-[0.98] tracking-[-0.065em] text-white sm:text-[4.2rem] lg:text-[5.7rem] xl:text-[6.5rem]">
+            <h1 className="layer-pop max-w-5xl text-[3rem] font-semibold leading-[0.98] tracking-[-0.065em] text-white sm:text-[4.2rem] lg:text-[5.7rem] xl:text-[6.5rem]">
               Building scalable
               <span className="block bg-[linear-gradient(120deg,#f8fafc_0%,#a5f3fc_35%,#38bdf8_100%)] bg-clip-text text-transparent">
                 AI-powered web systems
               </span>
               with premium product taste.
             </h1>
-            <p className="mt-6 pt-7 max-w-2xl text-base leading-7 text-slate-300 sm:mt-7 sm:text-lg sm:leading-8 lg:text-xl">
+            <p className="layer-pop-soft mt-6 pt-7 max-w-2xl text-base leading-7 text-slate-300 sm:mt-7 sm:text-lg sm:leading-8 lg:text-xl">
               Abdulloh Sadirov engineers modern digital experiences at the intersection of
               frontend precision, backend architecture, and intelligent application design.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
+            <div className="layer-pop-soft mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
               <Button asChild size="lg" className="w-full sm:w-auto">
                 <a href="#projects" className="!text-slate-950">
                   Explore Projects
@@ -145,7 +196,10 @@ function Hero() {
                 </a>
               </Button>
               <Button asChild variant="secondary" size="lg" className="w-full sm:w-auto">
-                <a href="#contact">Build With Me</a>
+                <a href={links.resume} target="_blank" rel="noreferrer">
+                  View Resume
+                  <FileText className="h-4 w-4" />
+                </a>
               </Button>
             </div>
           </motion.div>
@@ -155,9 +209,9 @@ function Hero() {
             initial="hidden"
             animate="visible"
             custom={0.12}
-            className="relative mx-auto w-full max-w-[620px]"
+            className="scene-3d relative mx-auto w-full max-w-[620px]"
           >
-            <div className="relative rounded-[1.8rem] border border-white/10 bg-white/[0.04] p-3 shadow-[0_24px_80px_rgba(2,6,23,0.55)] backdrop-blur-xl sm:rounded-[2.2rem] sm:p-4">
+            <div className="ios-card ios-shine tilt-panel hero-float relative rounded-[1.8rem] p-3 sm:rounded-[2.2rem] sm:p-4">
               <div className="absolute inset-0 rounded-[2.2rem] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.16),transparent_35%)]" />
               <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 sm:rounded-[1.8rem]">
                 <img
@@ -166,8 +220,8 @@ function Hero() {
                   className="h-[420px] w-full object-cover object-[center_34%] sm:h-[520px]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.55)_60%,rgba(2,6,23,0.9)_100%)]" />
-                <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-3 sm:p-5">
-                  <div className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-cyan-100/75 backdrop-blur sm:px-4 sm:text-xs sm:tracking-[0.28em]">
+                <div className="layer-pop-soft absolute left-0 right-0 top-0 flex items-center justify-between p-3 sm:p-5">
+                  <div className="ios-pill rounded-full px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-cyan-100/75 sm:px-4 sm:text-xs sm:tracking-[0.28em]">
                     Abdulloh Sadirov
                   </div>
                   <div className="flex gap-2">
@@ -177,7 +231,7 @@ function Hero() {
                   </div>
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5">
-                  <div className="rounded-[1.25rem] border border-white/10 bg-slate-950/60 p-4 backdrop-blur sm:rounded-[1.5rem] sm:p-5">
+                  <div className="ios-card layer-pop rounded-[1.25rem] p-4 sm:rounded-[1.5rem] sm:p-5">
                     <p className="text-[11px] uppercase tracking-[0.22em] text-cyan-100/60 sm:text-xs sm:tracking-[0.28em]">Developer Identity</p>
                     <h3 className="mt-2 text-xl font-medium leading-tight text-white sm:text-2xl">Fullstack Developer • AI/ML Engineer</h3>
                     <p className="mt-3 text-sm leading-6 text-slate-300 sm:leading-7">
@@ -190,7 +244,7 @@ function Hero() {
           </motion.div>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="scene-3d mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {heroStats.map((item, index) => (
             <motion.div
               key={item.value}
@@ -198,7 +252,8 @@ function Hero() {
               initial="hidden"
               animate="visible"
               custom={0.18 + index * 0.08}
-              className="rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur"
+              className="ios-card ios-shine tilt-panel tilt-panel-soft grid-float rounded-[1.75rem] p-5"
+              style={{ animationDelay: `${index * 0.6}s` }}
             >
               <p className="text-lg font-medium tracking-[-0.03em] text-white">{item.value}</p>
               <p className="mt-2 text-sm leading-7 text-slate-400">{item.label}</p>
@@ -222,11 +277,11 @@ function About() {
 
         <div className="mt-12 grid gap-6 lg:mt-14 lg:grid-cols-[1.1fr_0.9fr]">
           <motion.div
-            variants={sectionMotion}
+            variants={aosMotion.left}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="rounded-[1.6rem] border border-white/10 bg-[linear-gradient(180deg,rgba(56,189,248,0.08),rgba(15,23,42,0.6))] p-5 sm:rounded-[2rem] sm:p-8"
+            className="ios-card rounded-[1.6rem] p-5 sm:rounded-[2rem] sm:p-8"
           >
             <p className="text-sm uppercase tracking-[0.28em] text-cyan-100/70">Engineering Philosophy</p>
             <p className="mt-6 text-lg leading-8 text-slate-200">
@@ -237,8 +292,8 @@ function About() {
             </p>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {capabilityPillars.map((item) => (
-                <div key={item.title} className="rounded-[1.4rem] border border-white/10 bg-slate-950/45 p-4">
-                  <div className="rounded-2xl border border-cyan-300/15 bg-cyan-300/8 p-3 text-cyan-200 w-fit">
+                <div key={item.title} className="ios-card rounded-[1.4rem] p-4">
+                  <div className="ios-pill rounded-2xl p-3 text-cyan-200 w-fit">
                     <item.icon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-4 text-base font-medium text-white">{item.title}</h3>
@@ -252,14 +307,14 @@ function About() {
             {aboutCards.map((item, index) => (
               <motion.div
                 key={item.title}
-                variants={sectionMotion}
+                variants={aosMotion.right}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 custom={index * 0.08}
-                className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5 sm:rounded-[1.75rem] sm:p-6"
+                className="ios-card ios-shine rounded-[1.5rem] p-5 sm:rounded-[1.75rem] sm:p-6"
               >
-                <div className="inline-flex rounded-2xl border border-white/10 bg-slate-950/60 p-3 text-cyan-200">
+                <div className="ios-pill inline-flex rounded-2xl p-3 text-cyan-200">
                   <item.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-5 text-xl font-medium text-white">{item.title}</h3>
@@ -287,15 +342,15 @@ function Skills() {
           {skillGroups.map((group, index) => (
             <motion.article
               key={group.title}
-              variants={sectionMotion}
+              variants={aosMotion.up}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.12 }}
               custom={index * 0.06}
-              className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 sm:rounded-[1.9rem] sm:p-6"
+              className="ios-card ios-shine rounded-[1.5rem] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 sm:rounded-[1.9rem] sm:p-6"
             >
               <div className="flex items-center justify-between">
-                <div className="rounded-2xl border border-cyan-300/15 bg-cyan-300/8 p-3 text-cyan-200">
+                <div className="ios-pill rounded-2xl p-3 text-cyan-200">
                   <group.icon className="h-5 w-5" />
                 </div>
                 <span className="text-xs uppercase tracking-[0.25em] text-slate-500">
@@ -327,20 +382,20 @@ function Projects() {
           text="Each concept is presented as a startup-ready build: clear purpose, mature stack, premium interface direction, and technical depth across the full product surface."
         />
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="scene-3d mt-12 grid gap-6 lg:grid-cols-2">
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
-              variants={sectionMotion}
+              variants={index % 2 === 0 ? aosMotion.left : aosMotion.right}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.16 }}
               custom={index * 0.07}
-              className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-slate-950/70 sm:rounded-[2rem]"
+              className="ios-card ios-shine tilt-panel overflow-hidden rounded-[1.6rem] sm:rounded-[2rem]"
             >
               <div className={cn("relative overflow-hidden p-5 sm:p-7", `bg-gradient-to-br ${project.accent}`)}>
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent,rgba(2,6,23,0.72))]" />
-                <div className="relative">
+                <div className="layer-pop relative">
                   <div className="flex items-center justify-between">
                     <Tag className="border-cyan-300/20 bg-cyan-300/10 text-cyan-100">{project.type}</Tag>
                     <project.icon className="h-5 w-5 text-cyan-200" />
@@ -441,7 +496,7 @@ function Projects() {
                 </div>
               </div>
 
-              <div className="p-5 sm:p-7">
+              <div className="layer-pop-soft p-5 sm:p-7">
                 <h3 className="text-xl font-medium text-white sm:text-2xl">{project.title}</h3>
                 <p className="mt-4 text-sm leading-7 text-slate-400">{project.summary}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -485,13 +540,13 @@ function Journey() {
             {journey.map((item, index) => (
               <motion.div
                 key={item.title}
-                variants={sectionMotion}
+                variants={index % 2 === 0 ? aosMotion.left : aosMotion.right}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.18 }}
                 custom={index * 0.07}
                 className={cn(
-                  "relative ml-10 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5 md:ml-0 md:w-[calc(50%-2rem)] md:p-6 md:rounded-[1.8rem]",
+                  "ios-card ios-shine relative ml-10 rounded-[1.5rem] p-5 md:ml-0 md:w-[calc(50%-2rem)] md:p-6 md:rounded-[1.8rem]",
                   index % 2 === 0 ? "md:mr-auto" : "md:ml-auto",
                 )}
               >
@@ -531,11 +586,11 @@ function Contact() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
-            variants={sectionMotion}
+            variants={aosMotion.left}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="rounded-[1.6rem] border border-white/10 bg-[linear-gradient(180deg,rgba(56,189,248,0.08),rgba(15,23,42,0.68))] p-5 sm:rounded-[2rem] sm:p-8"
+            className="ios-card rounded-[1.6rem] p-5 sm:rounded-[2rem] sm:p-8"
           >
             <p className="text-sm uppercase tracking-[0.28em] text-cyan-100/65">Let’s build</p>
             <h3 className="mt-5 max-w-xl text-3xl font-semibold tracking-[-0.05em] text-white sm:text-4xl">
@@ -564,15 +619,15 @@ function Contact() {
               <motion.a
                 key={item.label}
                 href={item.href}
-                variants={sectionMotion}
+                variants={aosMotion.right}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 custom={index * 0.07}
-                className="flex items-center justify-between gap-4 rounded-[1.25rem] border border-white/10 bg-white/[0.04] px-4 py-4 transition duration-300 hover:border-cyan-300/25 sm:rounded-[1.5rem] sm:px-5"
+                className="ios-card ios-shine flex items-center justify-between gap-4 rounded-[1.25rem] px-4 py-4 transition duration-300 hover:border-cyan-300/25 sm:rounded-[1.5rem] sm:px-5"
               >
                 <div className="flex items-center gap-4">
-                  <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-3 text-cyan-200">
+                  <div className="ios-pill rounded-2xl p-3 text-cyan-200">
                     <item.icon className="h-5 w-5" />
                   </div>
                   <div>
